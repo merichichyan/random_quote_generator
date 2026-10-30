@@ -1,15 +1,22 @@
 url = 'https://quoteslate.vercel.app/api/quotes/random'
-isQuote = false;
+
 
 const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+const savedTags = JSON.parse(localStorage.getItem('tags')) || [];
+const savedQuote = localStorage.getItem('quote_text');
+if(savedQuote){
+console.log(savedQuote);
+    const quoteCard = document.querySelector(".quote_card");
+    quoteCard.textContent=JSON.parse(savedQuote)
+}
 checkboxes.forEach(checkbox => {
+    checkbox.checked = savedTags. includes(checkbox.value);
     checkbox.addEventListener('change', () => {
         const selectedTag = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value)
 
         selectedTag.length > 0 ? localStorage.setItem('tags', JSON.stringify(selectedTag)) : localStorage.removeItem('tags')
     })
 })
-
 
 
 function clickAllBtn() {
@@ -54,15 +61,14 @@ function clickGenerateBtn() {
         getQuote(categories).then(quote => {
             if (quote) {
                 document.querySelector(".quote_card").textContent = quote.quote
-                isQuote = true
+                localStorage.setItem('isQuote', JSON.stringify(true))
+                localStorage.setItem('quote_text', JSON.stringify(quote.quote))
             }
         });
 }
 
 async function copyQuote() {
-    const quoteCard = document.querySelector(".quote_card");
-    const quote = quoteCard.textContent;
-    console.log(333, quote);
+    const quote = localStorage.getItem('quote_text')
 
     if (!quote) {
         alert('Generate a quote first to copy it!')
@@ -77,9 +83,8 @@ async function copyQuote() {
 }
 
 async function shareQuote() {
-    const quoteCard = document.querySelector(".quote_card");
-    const quote = quoteCard.textContent;
-    if (!isQuote) {
+    const quote = localStorage.getItem('quote_text')
+    if (!JSON.parse(localStorage.getItem('isQuote'))) {
         alert("Generate a quote first to share it!");
         return;
     }
@@ -87,7 +92,7 @@ async function shareQuote() {
     if (navigator.share) {
         try {
             await navigator.share({
-                title: "Random Quote", text: quote
+                 text: JSON.parse(quote)
             })
         } catch (error) {
             console.log("Share cancelled");
