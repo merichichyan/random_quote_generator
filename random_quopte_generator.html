@@ -1,49 +1,55 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Random Quote Generator</title>
-        <link rel="stylesheet" href="random_quopte_generator.css" />
-    </head>
-    <body>
-        
-        <div id="quote_body">
 
-            <h2> Random Quote Generator </h2>
+<head>
+    <meta charset="utf-8" />
+    <title>Random Quote Generator</title>
+    <link rel="stylesheet" href="random_quopte_generator.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
 
-             <div class="categories">
-                <button class="category" onclick="clickAllBtn()">All</button>
+<body>
+
+    <div id="quote_body">
+
+        <h2> Random Quote Generator </h2>
+
+        <div class="categories">
+            <button class="category" onclick="clickAllBtn()">All</button>
 
             <label class="category">
                 <input type="checkbox" name="category" value="life">
                 <span>Life</span>
             </label>
-               
-               <label class="category">
-                    <input type="checkbox" name="category" value="love">
-                    <span>Love</span>
-                </label>
-                
-                <label class="category">
-                    <input type="checkbox" name="category" value="motivation">
-                    <span>Motivation</span>
-                </label>
 
-                <label class="category">
-                    <input type="checkbox" name="category" value="wisdom">
-                    <span>Wisdom</span>
-                </label>
+            <label class="category">
+                <input type="checkbox" name="category" value="love">
+                <span>Love</span>
+            </label>
 
-            </div>
+            <label class="category">
+                <input type="checkbox" name="category" value="motivation">
+                <span>Motivation</span>
+            </label>
 
-            <div class="quote_card">
-                Generate Quote 
-            </div>
+            <label class="category">
+                <input type="checkbox" name="category" value="wisdom">
+                <span>Wisdom</span>
+            </label>
 
-            <button class="generate_btn" onclick="clickGenerateBtn()">Generate a Quote</button>
         </div>
 
+        <div class="quote_card"></div>
 
-        <script src="random_quopte_generator.js"></script>
-    </body>
+        <button class="generate_btn" onclick="clickGenerateBtn()">Generate a Quote</button>
+
+        <div class="actions">
+            <button class="copy_btn" onclick="copyQuote() " title="Copy quote"><i class="fa fa-clone" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
+
+    <script src="random_quopte_generator.js"></script>
+</body>
+
 </html>

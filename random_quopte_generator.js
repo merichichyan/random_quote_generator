@@ -1,4 +1,5 @@
 url = 'https://quoteslate.vercel.app/api/quotes/random'
+isQuote = false;
 
 const checkboxes = document.querySelectorAll('input[type="checkbox"]')
 checkboxes.forEach(checkbox => {
@@ -27,6 +28,7 @@ function clickAllBtn() {
 
 
 async function getQuote(categories) {
+    
     const randomIndex = Math.floor(Math.random() * categories.length);
     const category = categories[randomIndex];
 
@@ -52,7 +54,24 @@ function clickGenerateBtn() {
     getQuote(categories).then(quote => {        
         if (quote) {
             document.querySelector(".quote_card").textContent = quote.quote
+            isQuote =true
         }
     });
 }
 
+async function copyQuote() {
+    const quoteCard =  document.querySelector(".quote_card");
+    const quote = quoteCard.textContent;
+    console.log(333, quote);
+    
+    if (!quote) {
+        alert ('Generate a quote first to copy it!')
+        return
+    };
+    try {
+        await navigator.clipboard.writeText(quote);
+        alert ('Quote copied!');
+    } catch (error) {
+        alert ('Could not copy quote')
+    }
+}
