@@ -78,6 +78,11 @@ body{
     justify-content: end;
     gap: 5px;
 }
+@media screen and (max-width: 650px) {
+    .actions{
+      padding-top: 30px;
+    }
+}
 .copy_btn {
     width: 42px;
     height: 42px;
