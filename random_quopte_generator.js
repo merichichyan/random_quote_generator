@@ -11,8 +11,20 @@
 
 
 
-
-
+    function clickAllBtn(){
+        let tags = [];
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+        const allChaked = Array.from(checkboxes).every(checkbox => checkbox.checked)
+        checkboxes.forEach(checkbox => {
+            checkbox.checked= !allChaked
+            if(checkbox.checked){
+                tags.push(checkbox.value)
+            }
+        })
+        allChaked ? localStorage.removeItem('tags') : localStorage.setItem('tags', JSON.stringify(tags))
+    }
 
 
     
+  
+   
