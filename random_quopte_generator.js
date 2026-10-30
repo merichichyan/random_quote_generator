@@ -28,7 +28,7 @@ function clickAllBtn() {
 
 
 async function getQuote(categories) {
-    
+
     const randomIndex = Math.floor(Math.random() * categories.length);
     const category = categories[randomIndex];
 
@@ -50,28 +50,50 @@ async function getQuote(categories) {
 
 function clickGenerateBtn() {
     const categories = JSON.parse(localStorage.getItem('tags'))
-    !categories ? alert('Select a category') : 
-    getQuote(categories).then(quote => {        
-        if (quote) {
-            document.querySelector(".quote_card").textContent = quote.quote
-            isQuote =true
-        }
-    });
+    !categories ? alert('Select a category') :
+        getQuote(categories).then(quote => {
+            if (quote) {
+                document.querySelector(".quote_card").textContent = quote.quote
+                isQuote = true
+            }
+        });
 }
 
 async function copyQuote() {
-    const quoteCard =  document.querySelector(".quote_card");
+    const quoteCard = document.querySelector(".quote_card");
     const quote = quoteCard.textContent;
     console.log(333, quote);
-    
+
     if (!quote) {
-        alert ('Generate a quote first to copy it!')
+        alert('Generate a quote first to copy it!')
         return
     };
     try {
         await navigator.clipboard.writeText(quote);
-        alert ('Quote copied!');
+        alert('Quote copied!');
     } catch (error) {
-        alert ('Could not copy quote')
+        alert('Could not copy quote')
+    }
+}
+
+async function shareQuote() {
+    const quoteCard = document.querySelector(".quote_card");
+    const quote = quoteCard.textContent;
+    if (!isQuote) {
+        alert("Generate a quote first to share it!");
+        return;
+    }
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: "Random Quote", text: quote
+            })
+        } catch (error) {
+            console.log("Share cancelled");
+        }
+    }
+    else {
+        alert("Sharing is not supported in this browser.");
     }
 }
